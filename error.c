@@ -17,4 +17,3 @@ void _puterror(char *err)
 		perror("write");
 	}
 }
-

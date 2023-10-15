@@ -32,6 +32,7 @@ char *get_input(void);
 void br_puts(char *str);
 char **tokenize_input(char *input);
 int br_putchar(char c);
+void *get_line(void);
 char **tokenize(char *str, const char *delim);
 
 /**ENVIRONMENT FUNCTIONS*/
@@ -52,6 +53,7 @@ int br_clear(char **args);
 
 /*HELP*/
 void br_help(void);
+void free_error(char **argv, char *arg);
 
 /*FREE FUNCTIONS*/
 void free_tokens(char **ptr);
