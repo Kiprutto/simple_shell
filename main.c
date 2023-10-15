@@ -8,26 +8,21 @@ int execute(char **argv)
 {
 	pid_t id;
 	int status = 0;
-	char *cmd_path;
-	char *envp[2];
-	cmd_path = NULL;
+	char *cmd_path, *envp[2];
 
-	if (!argv || !*argv)
+	if (argv == NULL || *argv == NULL)
 		return (status);
 	if (check_for_builtin(argv))
 		return (status);
+
 	id = fork();
 	if (id < 0)
 	{
-		perror("fork");
+		_puterror("fork");
 		return (1);
 	}
 	if (id == -1)
-	{
-		perror(argv[0]);
-		free_tokens(argv);
-		free_last_input();
-	}
+		perror(argv[0]), free_tokens(argv), free_last_input();
 	if (id == 0)
 	{
 		envp[0] = get_path();
@@ -39,9 +34,7 @@ int execute(char **argv)
 			cmd_path = argv[0];
 		if (execve(cmd_path, argv, envp) == -1)
 		{
-			perror(argv[0]);
-			free_tokens(argv);
-			free_last_input();
+			perror(argv[0]), free_tokens(argv), free_last_input();
 			exit(EXIT_FAILURE);
 		}
 	}
@@ -50,10 +43,10 @@ int execute(char **argv)
 		do {
 			waitpid(id, &status, WUNTRACED);
 		} while (!WIFEXITED(status) && !WIFSIGNALED(status));
-		free(cmd_path);
 	}
 	return (status);
 }
+
 
 /**
  * main - main function
@@ -84,6 +77,6 @@ int main(void)
 		free_tokens(args);
 		status = 1;
 	} while (status);
-	return (0);
+	return (EXIT_SUCCESS);
 }
 
