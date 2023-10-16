@@ -18,7 +18,7 @@ int execute(char **argv)
 	id = fork();
 	if (id < 0)
 	{
-		_puterror("fork");
+		perror("fork");
 		return (1);
 	}
 	if (id == -1)
@@ -34,7 +34,9 @@ int execute(char **argv)
 			cmd_path = argv[0];
 		if (execve(cmd_path, argv, envp) == -1)
 		{
-			perror(argv[0]), free_tokens(argv), free_last_input();
+			perror(argv[0]);
+			free_tokens(argv);
+			free_last_input();
 			exit(EXIT_FAILURE);
 		}
 	}

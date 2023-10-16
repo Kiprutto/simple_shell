@@ -43,6 +43,7 @@ int br_unsetenv(char **args);
 /*PATH FUNCTIONS*/
 char *get_path(void);
 char *find_in_path(char *command);
+void free_path(void);
 
 /*BUILTIN FUNCTIONS*/
 int check_for_builtin(char **args);
@@ -70,12 +71,12 @@ char *br_memset(char *s, char b, unsigned int n);
 char *br_strcat(char *dest, const char *src);
 
 /*MAIN FUNCTION*/
-int execute(char **argv);
+int execute(char **args);
 int main(void);
 
 /*SIGNAL FUNCTIONS*/
 void handle_sigint(int sig);
 void handle_sigquit(int sig);
 void handle_sigstp(int sig);
-void _puterror(char *err);
+void br_puterror(char *err);
 #endif

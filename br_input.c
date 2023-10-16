@@ -74,7 +74,7 @@ char **tokenize_input(char *input)
 	input_copy = br_strdup(input);
 	if (input_copy == NULL)
 	{
-		br_puts("Malloc error");
+		br_puts("Memory allocation error");
 		exit(EXIT_FAILURE);
 	}
 	tokens = tokenize(input_copy, " \t\r\n\a");
